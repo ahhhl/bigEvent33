@@ -55,8 +55,8 @@
     $(function () {
         $('.input_sub').click(function (e) {
             e.preventDefault();
-            var user_name = $('.input_txt').val();
-            var password = $('.input_pass').val();
+            var user_name = $('.input_txt').val().trim();
+            var password = $('.input_pass').val().trim();
             if (user_name == '' || password == "") {
                 $('.modal-body').text('请输入用户名或密码')
                 $('.modal').modal();
