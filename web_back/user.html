@@ -128,44 +128,46 @@
     })
 </script> -->
 <script>
-$(function(){
-    $.ajax({
-        url:'https://autumnfish.cn/big/admin/userinfo_get',
-        type:'get',
-        success:function(backData){
-            console.log(backData);
-            for(var key in backData.data){
-                $('input.'+key+'').val(backData.data[key]);
-            }
-            $('.user_pic').attr('src',backData.data.user_pic);
-            
-        }
-    });
-    $('#exampleInputFile').change(function(e){
-        var url=URL.createObjectURL(this.files[0]);
-        $(this).prev('img').attr('src',url);
-    });
-    $('.btn-success').click(function(e){
-        e.preventDefault();
-        var formData=new FormData($('.article_form')[0]);
+    $(function () {
         $.ajax({
-            url:'https://autumnfish.cn/big/admin/userinfo_edit',
-            type:'post',
-            data:formData,
-            contentType:false,
-            processData:false,
-            success:function(backData){
+            url: 'https://autumnfish.cn/big/admin/userinfo_get',
+            type: 'get',
+            success: function (backData) {
                 console.log(backData);
-
-                if(backData.code==200){
-                    $('.modal').modal();
-                    setTimeout(function(){
-                        window.location.reload();
-                    },1000)
+                for (var key in backData.data) {
+                    $('input.' + key + '').val(backData.data[key]);
                 }
-                
+                $('.user_pic').attr('src', backData.data.user_pic);
+
             }
+        });
+        $('#exampleInputFile').change(function (e) {
+            var url = URL.createObjectURL(this.files[0]);
+            $(this).prev('img').attr('src', url);
+        });
+        $('.btn-success').click(function (e) {
+            e.preventDefault();
+            var formData = new FormData($('.article_form')[0]);
+            $.ajax({
+                url: 'https://autumnfish.cn/big/admin/userinfo_edit',
+                type: 'post',
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function (backData) {
+                    console.log(backData);
+
+                    if (backData.code == 200) {
+                        $('.modal').modal();
+                        setTimeout(function () {
+                            window.location.reload();
+
+                            parent.window.frames["main_frame"].window.location.reload();
+                        }, 1000)
+                    }
+
+                }
+            })
         })
     })
-})
 </script>
